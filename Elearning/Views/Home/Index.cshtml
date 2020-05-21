@@ -1,0 +1,184 @@
+﻿@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+
+<section class="padding-y-100 bg-light">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-12">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="TabsStudents" role="tabpanel">
+                        <div class="row text-center">
+                            <div class="col-lg-4 col-md-6 marginTop-30">
+                                <a asp-controller="Course" asp-action="Index" class="card height-100p p-5 shadow-v1 hover:primary">
+                                    <i class="ti-book text-primary display-4"></i>
+                                    <h4 class="my-4">
+                                        Tüm Kurslar
+                                    </h4>
+                                    <p>
+                                        Kurs seçin.
+                                    </p>
+                                </a>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 marginTop-30">
+                                <a asp-controller="MyCourse" asp-action="Index" class="card height-100p p-5 shadow-v1 hover:primary">
+                                    <i class="ti-bookmark-alt text-primary display-4"></i>
+                                    <h4 class="my-4">
+                                        Kurslarım
+                                    </h4>
+                                    <p>
+                                        Aktif kurslarınız.
+                                    </p>
+                                </a>
+                            </div>
+                            
+                            <div class="col-lg-4 col-md-6 marginTop-30">
+                                <a asp-controller="Account" asp-action="Index" class="card height-100p p-5 shadow-v1 hover:primary">
+                                    <i class="ti-user text-primary display-4"></i>
+                                    <h4 class="my-4">
+                                        Hesap
+                                    </h4>
+                                    <p>
+                                        Kişisel bilgilerinizi düzenleyin.
+                                    </p>
+                                </a>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 marginTop-30">
+                                @*<a href="page-help-&-support-topics.html" class="card height-100p p-5 shadow-v1 hover:primary">
+                                    <i class="ti-settings text-primary display-4"></i>
+                                    <h4 class="my-4">
+                                        Ayarlar
+                                    </h4>
+                                    <p>
+                                        Experiencing a bug? Check here.
+                                    </p>
+                                </a>*@
+                            </div>
+
+
+                            <div class="col-lg-4 col-md-6 marginTop-30">
+                                <a asp-controller="Account" asp-action="Index" asp-route-cert="on" class="card height-100p p-5 shadow-v1 hover:primary">
+                                    <i class="ti-cup text-primary display-4"></i>
+                                    <h4 class="my-4">
+                                        Belgelerim
+                                    </h4>
+                                    <p>
+                                        Kazandığınız belgeleri görüntüleyin.
+                                    </p>
+                                </a>
+                            </div>
+
+                            @*<div class="col-lg-4 col-md-6 marginTop-30">
+                                <a href="page-help-&-support-topics.html" class="card height-100p p-5 shadow-v1 hover:primary">
+                                    <i class="ti-comment-alt text-primary display-4"></i>
+                                    <h4 class="my-4">
+                                        Community
+                                    </h4>
+                                    <p>
+                                        Learn from EchoTheme community forum.
+                                    </p>
+                                </a>
+                            </div>*@
+
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="TabsInstructor" role="tabpanel">
+                        <div class="row text-center">
+
+                            <div class="col-lg-4 col-md-6 marginTop-30">
+                                <a href="page-help-&-support-topics.html" class="card height-100p p-5 shadow-v1 hover:primary">
+                                    <i class="ti-stats-up text-primary display-4"></i>
+                                    <h4 class="my-4">
+                                        Product tracking
+                                    </h4>
+                                    <p>
+                                        Everything about taking a course on Educati.
+                                    </p>
+                                </a>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 marginTop-30">
+                                <a href="page-help-&-support-topics.html" class="card height-100p p-5 shadow-v1 hover:primary">
+                                    <i class="ti-credit-card text-primary display-4"></i>
+                                    <h4 class="my-4">
+                                        Purchase / Refunds
+                                    </h4>
+                                    <p>
+                                        Learn about coupons, how to send gifts, and refunds.
+                                    </p>
+                                </a>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 marginTop-30">
+                                <a href="page-help-&-support-topics.html" class="card height-100p p-5 shadow-v1 hover:primary">
+                                    <i class="ti-comment-alt text-primary display-4"></i>
+                                    <h4 class="my-4">
+                                        Community
+                                    </h4>
+                                    <p>
+                                        Learn from EchoTheme community forum.
+                                    </p>
+                                </a>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 marginTop-30">
+                                <a href="page-help-&-support-topics.html" class="card height-100p p-5 shadow-v1 hover:primary">
+                                    <i class="ti-bookmark-alt text-primary display-4"></i>
+                                    <h4 class="my-4">
+                                        Getting Started
+                                    </h4>
+                                    <p>
+                                        Learn how Educati works and how to start learning.
+                                    </p>
+                                </a>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 marginTop-30">
+                                <a href="page-help-&-support-topics.html" class="card height-100p p-5 shadow-v1 hover:primary">
+                                    <i class="ti-user text-primary display-4"></i>
+                                    <h4 class="my-4">
+                                        Account / Profile
+                                    </h4>
+                                    <p>
+                                        Manage your account settings.
+                                    </p>
+                                </a>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 marginTop-30">
+                                <a href="page-help-&-support-topics.html" class="card height-100p p-5 shadow-v1 hover:primary">
+                                    <i class="ti-settings text-primary display-4"></i>
+                                    <h4 class="my-4">
+                                        Troubleshooting
+                                    </h4>
+                                    <p>
+                                        Experiencing a bug? Check here.
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- END tab-content-->
+            </div>
+
+            <div class="col-12 mt-5">
+                <div class="col-lg-4 col-md-6 mx-auto">
+                    <a asp-controller="Home" asp-action="Contact" class="card height-100p p-5 bg-primary text-center text-white">
+                        <i class="ti-help text-white display-4"></i>
+                        <h4 class="my-4">
+                            Destek
+                        </h4>
+                        <p>
+                            Sorun, talep veya görüşlerinizi bize iletin.
+                        </p>
+                    </a>
+                </div>
+            </div>
+
+        </div> <!-- END row-->
+    </div> <!-- END container-->
+</section>

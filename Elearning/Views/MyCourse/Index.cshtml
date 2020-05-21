@@ -1,0 +1,117 @@
+﻿@model PaginatedList<Elearning.Models.Dto.MyCourseIndexDto>
+@{
+    ViewData["Title"] = "Kurslarım";
+}
+
+<div class="padding-y-60 bg-cover" data-dark-overlay="6">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 my-2 text-white">
+                <ol class="breadcrumb breadcrumb-double-angle bg-transparent p-0">
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+                    <li class="breadcrumb-item">Kurslarım</li>
+                </ol>
+                <h2 class="h1">
+                    @ViewData["Title"]
+                </h2>
+            </div>
+            <form class="col-lg-5 my-2 ml-auto" method="get">
+                <div class="input-group bg-white rounded p-1">
+                    <input type="text" class="form-control border-white" placeholder="Kurslarımda ara" name="search" value="@ViewData["filter"]">
+                    <div class="input-group-append">
+                        <button class="btn btn-info rounded" type="submit">
+                            Ara
+                            <i class="ti-angle-right small"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<section class="padding-y-60 bg-light-v2">
+    <div class="container">
+        <div class="row" style="min-height:400px">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4 col-md-6 marginTop-30">
+                    <div class="card height-100p text-gray shadow-v1">
+                        <img class="card-img-top" src="@item.PreviewPath" alt="">
+                        <div class="card-body">
+                            @*<span class="badge position-absolute top-0 bg-success text-white" data-offset-top="-13">
+                            Best selling
+                        </span>*@
+
+                            <a asp-action="Detail" asp-route-id="@item.Id" class="h5">
+                                @item.Title
+                            </a>
+                            <p class="my-3">
+                                <i class="ti-user mr-2"></i>
+                                @item.Publisher
+                            </p>
+                        </div>
+                        <div class="card-footer media align-items-center justify-content-between">
+                            <ul class="list-unstyled mb-0">
+                                @*<li class="mb-1">
+                                <i class="ti-headphone small mr-2"></i>
+                                46 lectures
+                            </li>
+                            <li class="mb-1">
+                                <i class="ti-time small mr-2"></i>
+                                27.5 hours
+                            </li>*@
+                            </ul>
+                            <div id="myProgress" style="width:100%;background-color: #ddd;">
+                                <div id="myBar" style="width:@item.CompletionRate%;background-color: #4CAF50;height:20px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @{
+                var prevDisabled = !Model.HasPreviousPage ? "hidden" : "";
+                var nextDisabled = !Model.HasNextPage ? "hidden" : "";
+            }
+            <div class="col-12 marginTop-70">
+                <ul class="pagination pagination-primary justify-content-center">
+                    <li class="page-item mx-1">
+                        <a id="prevbtn" asp-action="Index" asp-route-pg="@(Model.PageIndex - 1)" asp-route-filter="@ViewData["filter"]" class="btn page-link iconbox iconbox-sm rounded-0 @prevDisabled" >
+                            <i class="ti-angle-left small"></i>
+                        </a>
+                    </li>
+                    @*<li class="page-item mx-1">
+                    <a class="page-link iconbox iconbox-sm rounded-0" href="#">1</a>
+                </li>
+                <li class="page-item active disabled mx-1">
+                    <a class="page-link iconbox iconbox-sm rounded-0" href="#">2</a>
+                </li>
+                <li class="page-item mx-1">
+                    <a class="page-link iconbox iconbox-sm rounded-0" href="#">3</a>
+                </li>
+                <li class="page-item disabled mx-1">
+                    <a class="page-link iconbox iconbox-sm rounded-0" href="#">
+                        <i class="ti-more-alt"></i>
+                    </a>
+                </li>
+                <li class="page-item mx-1">
+                    <a class="page-link iconbox iconbox-sm rounded-0" href="#">16</a>
+                </li>*@
+                    <li class="page-item mx-1">
+                        <a id="nextbtn" asp-action="Index" asp-route-pg="@(Model.PageIndex + 1)" asp-route-filter="@ViewData["filter"]" class="btn page-link iconbox iconbox-sm rounded-0 @nextDisabled">
+                            <i class="ti-angle-right small"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div> <!-- END row-->
+    </div> <!-- END container-->
+</section>
+
+@section Scripts{
+<script>
+    document.getElementsByClassName("iconbox-sm")[0].addEventListener("click", function () {
+    document.getElementById("myBar").style.width = "80%";
+});
+</script>
+ }

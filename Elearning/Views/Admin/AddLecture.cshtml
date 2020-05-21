@@ -1,0 +1,214 @@
+﻿@model Elearning.Models.ViewModel.AddLectureViewModel
+@{
+    ViewData["Title"] = "Ders Ekleme";
+}
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-12 text-center my-5">
+            <h4>
+                @ViewData["Title"]
+            </h4>
+        </div>
+        <div class="col-12 mx-auto">
+            <form method="post" asp-controller="Admin" asp-action="Addlecture" enctype="multipart/form-data" id="lectureform">
+
+                <div class="row form-group">
+                    <label for="example-text-input" class="col-2 col-form-label text-right">Kurs Id</label>
+                    <div class="col-10">
+                        <input class="form-control" asp-for="Lecture.CourseId" value="@ViewData["courseid"]">
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <label for="example-text-input" class="col-2 col-form-label text-right">Ders Grubu</label>
+                    <div class="col-10">
+                        @Html.DropDownListFor(a => a.Lecture.LectureGroupId, Model.LectureGroups, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <label for="example-text-input" class="col-2 col-form-label text-right">Başlık</label>
+                    <div class="col-10">
+                        <input class="form-control" asp-for="Lecture.Title">
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <label for="example-search-input" class="col-2 col-form-label text-right">Sıra</label>
+                    <div class="col-10">
+                        <input class="form-control" asp-for="Lecture.Row" value="1">
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <label for="example-email-input" class="col-2 col-form-label text-right">Açıklama <small class="text-danger">*HTML</small></label>
+                    <div class="col-10">
+                        <input class="form-control" asp-for="Lecture.Description">
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <label for="example-url-input" class="col-2 col-form-label text-right">Hedefler <small class="text-danger">*HTML</small></label>
+                    <div class="col-10">
+                        <textarea class="form-control" rows="5" asp-for="Lecture.Aim"></textarea>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <label for="example-url-input" class="col-2 col-form-label text-right">İçerik <small class="text-danger">*HTML</small></label>
+                    <div class="col-10">
+                        <textarea class="form-control" rows="5" asp-for="Lecture.Content"></textarea>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <label for="example-tel-input" class="col-2 col-form-label text-right">Ücret</label>
+                    <div class="col-10">
+                        <input class="form-control" asp-for="Lecture.Price">
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <label for="example-password-input" class="col-2 col-form-label text-right">Aktif</label>
+                    <div class="col-10">
+                        <select class="form-control" asp-for="Lecture.Active">
+                            <option value="True">Aktif</option>
+                            <option value="False">Aktif Değil</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <label for="example-number-input" class="col-2 col-form-label text-right">Ders Öğretmen Id</label>
+                    <div class="col-10">
+                        <div class="input-group input-group--focus mb-3">
+                            <input class="form-control" asp-for="Lecture.InstructorId" id="instructorid">
+                            <div class="input-group-append">
+                                <span class="input-group-text bg-white"><button id="btn-add-ins" type="button" data-toggle="modal" data-target="#modal__large"><i class="fas fa-user-plus"></i></button></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <label for="example-password-input" class="col-2 col-form-label text-right">Zorunlu mu? <small class="text-danger">*Öntest-Son test</small></label>
+                    <div class="col-10">
+                        <select class="form-control" asp-for="Lecture.IsRequired">
+                            <option value="true">Zorunlu</option>
+                            <option value="false">Zorunlu Değil</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <label for="exampleFormControlFile1" class="col-2 col-form-label text-right">Ders Resmi</label>
+                    <div class="col-10">
+                        <input type="file" class="form-control-file" name="preview">
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-sm-end">
+                    <a asp-controller="Admin" asp-action="Index" class="btn btn-secondary text-light m-1"><i class="fas fa-home"></i> Ana Sayfa</a>
+                    <button type="submit" class="btn btn-success m-1"><i class="fas fa-save"></i> Kaydet</button>
+                    <a asp-controller="Admin" asp-action="AddLectureDetail" asp-route-courseid="@Model.Lecture.CourseId" class="btn btn-primary text-light m-1"><i class="fas fa-arrow-right"></i> Ders Detayı</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="success" value="@ViewData["upt"]" />
+<!--Modal-->
+<div class="modal fade" id="modal__large" tabindex="-1" role="dialog" aria-labelledby="modal__large" style="display: none; padding-right: 17px;">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Yeni Öğretmen Ekle</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="ti-close font-size-14"></i>
+                </button>
+            </div>
+            <form method="post" asp-controller="Admin" asp-action="Addinstructor" id="ins_form" enctype="multipart/form-data">
+                <div class="modal-body py-4">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">İsim (Ünvan ile)</label>
+                        <input type="text" class="form-control" name="name" id="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Kurum</label>
+                        <input type="text" class="form-control" id="institution" name="institution">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Özgeçmiş</label>
+                        <textarea class="form-control" rows="5" id="description" name="description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Resim</label>
+                        <input type="file" class="form-control" id="file" name="file">
+                    </div>
+                </div>
+                <div class="modal-footer py-4">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Kapat</button>
+                    <button type="submit" id="send-form" class="btn btn-success">Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        $('#ins_form').submit(function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: this.action,
+                type: this.method,
+                data: new FormData(this),
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    $('.close')[0].click();
+                    $('#ins_form')[0].reset();
+                    $('#instructorid').val(res);
+                },
+                error: function (xhr, error, status) {
+                    toastr.error("Bir hata oldu!");
+                }
+            });
+        })
+
+        $('#lectureform').submit(function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: this.action,
+                type: this.method,
+                data: new FormData(this),
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    if (res=="1") {
+                        $('#lectureform')[0].reset();
+                        toastr.success("Ders Eklendi");
+                    }
+                },
+                error: function (xhr, error, status) {
+                    toastr.error("Bir hata oldu!");
+                }
+            });
+        })
+
+        $(document).ready(function () {
+            var res = $('#success').val();
+            if (res == "1") {
+                toastr.success("Ders Eklendi!");
+            } else if (res == "2") {
+                toastr.error("Ders Eklenemedi!");
+            }
+        })
+    </script>
+}

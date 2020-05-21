@@ -1,0 +1,100 @@
+﻿@model Elearning.Models.Lecture
+@{
+    ViewData["Title"] = "Ders";
+}
+    <link rel="stylesheet" href="~/lib/hls/flowplayer.skin.7.2.7.css" />
+    <style type="text/css">
+        .flowplayer {
+            background-color: #00abcd;
+        }
+
+            .flowplayer a {
+                background-image: none !important
+            }
+
+            .flowplayer .fp-color-play {
+                fill: #018eab;
+            }
+            .flowplayer .fp-share {
+                display: none;
+            }
+
+    </style>
+
+<section class="pt-2 paddingBottom-150 bg-light-v2">
+    <div class="col-12">
+        <a asp-controller="MyCourse" asp-action="Detail" asp-route-id="@Model.CourseId" class="btn btn-info mx-3 mt-3"><i class="fas fa-undo-alt"></i> Geri Dön</a>
+        <div class="row">
+            <div class="col-lg-9 col-sm-12 mt-4">
+
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Konu Başlığı</h4>
+                        <div class="video-container">
+                            
+                            <!--Player-->
+                            <div data-cuepoints="[]" class="fp-slim is-fullscreen flowplayer is-splash"
+                                 data-poster="/images/previews/net-core.jpg" data-autoplay="false" data-fullscreen="true"
+                                 style="background-color:#777;" data-title="poster option">
+                                <video>
+                                    <source type="video/mp4" src="~/images/video/bilisim.mp4" />
+                                </video>
+                            </div>
+                        </div>
+
+                        <div class="p-4" style="display:flex;justify-content:space-between">
+                            <div class="">
+                                <button class="btn btn-outline-secondary"><i class="fas fa-arrow-circle-left"></i> Önceki</button>
+                            </div>
+                            <div class="">
+                                <button class="btn btn-outline-primary">Devam et <i class="fas fa-arrow-circle-right"></i></button>
+                            </div>
+                        </div>
+
+                    </div> <!-- END card-body-->
+                </div> <!-- END card-->
+                @*<div class="card shadow-v5 mt-5 padding-40">
+                        <h4>
+                            Konu ile ilgili soru bırakın
+                        </h4>
+                        <form action="" method="POST">
+                            <textarea class="form-control mb-4" rows="5" placeholder="Soruyu yazın"></textarea>
+                            <button class="btn btn-primary">Gönder</button>
+                        </form>
+                    </div>*@
+
+
+
+            </div> <!-- END col-lg-9 -->
+
+            <aside class="col-lg-3 col-sm-6 mt-4">
+
+
+                <div class="widget">
+                    <h2 class="widget-title">
+                        Dersler
+                    </h2>
+                    <ul>
+                        <li><a href="">All Courses (80)</a></li>
+                        <li><a href="">Web Development (28)</a></li>
+                        <li><a href="">Mobile Apps (4)</a></li>
+                        <li><a href="">Business (10)</a></li>
+                        <li><a href="">IT & Software (22)</a></li>
+                        <li><a href="">Data Science (6)</a></li>
+                        <li><a href="">Design (16) </a></li>
+                    </ul>
+                </div> <!-- END widget-->
+
+
+
+            </aside> <!-- END col-lg-3 -->
+        </div> <!-- END row-->
+    </div> <!-- END container-->
+</section>  <!-- END section -->
+
+@section Scripts{
+    <script src='~/lib/hls/flowplayer.7.2.7.min.js'></script>
+    <script src='~/lib/hls/flowplayer.hlsjs.light.min.js'></script>
+}
+
+

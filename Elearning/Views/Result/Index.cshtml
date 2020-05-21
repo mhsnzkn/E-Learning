@@ -1,0 +1,74 @@
+﻿@model Elearning.Models.ViewModel.ResultIndexViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+<div class="col-12 text-center">
+    <h4>Kurs Sonucu</h4>
+    <div id="donut_single" style="width: 100%;height:500px;"></div>
+</div>
+
+<div style="height:80px"></div>
+<div class="container d-flex justify-content-center my-4">
+
+    <table class="table table-active">
+        <thead class="table-primary">
+            <tr>
+                <th>Doğru Sayısı</th>
+                <th>Yanlış Sayısı</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.correct</td>
+                <td>@Model.wrong</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+@if (Model.Success)
+{
+    <div class="container text-right" style="height:250px">
+        <a asp-action="Certificate" asp-route-id="@Model.UserCourseId" class="btn btn-lg btn-success"><i class="fas fa-trophy"></i> Belgeyi Al</a>
+    </div>
+}
+else
+{
+<div class="container text-center" style="height:250px">
+    <p class="text-danger">Doğru cevap oranınız sınırın altında kaldığı için Başarı Belgeniz verilememiştir. Kursa yeniden kayıt yaptırmanız gerekmektedir.</p>
+</div>
+}
+
+
+
+@section Scripts{
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = google.visualization.arrayToDataTable([
+                ['Doğru', 'Yanlış'],
+                ['Doğru', @Model.correct],
+                ['Yanlış', @Model.wrong],
+            ]);
+
+            var options = {
+                pieHole: 0.4,
+                pieSliceTextStyle: {
+                    color: 'black',
+                },
+                legend: 'none'
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('donut_single'));
+            chart.draw(data, options);
+        }
+    </script>
+}

@@ -1,0 +1,253 @@
+﻿@model Elearning.Models.User
+@{
+    ViewData["Title"] = "Hesap Bilgileri";
+}
+<link rel="stylesheet" href="~/lib/toastr/toastr.min.css" />
+<link rel="stylesheet" href="~/lib/bootstrap-table/bootstrap-table.min.css" />
+    <div class="padding-y-80 bg-cover" data-dark-overlay="6">
+        <div class="container">
+            <h2 class="text-white">
+                Hesap Bilgilerim
+            </h2>
+            <ol class="breadcrumb breadcrumb-double-angle text-white bg-transparent p-0">
+                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+                <li class="breadcrumb-item"> Hesap</li>
+            </ol>
+        </div>
+    </div>
+
+    <section class="paddingTop-50 paddingBottom-120 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mt-4">
+                    <div class="card shadow-v1">
+                        <div class="card-header text-center border-bottom pt-5 mb-4">
+                            <h4 id="txt_name">
+                                @Model.Name @Model.Surname
+                            </h4>
+                            <p id="txt_title">
+                                @Model.Title
+                            </p>
+                        </div>
+                        <div class="card-body border-bottom">
+                            <ul class="list-unstyled">
+                                <li class="mb-3">
+                                    <span class="d-block">Kullanıcı adı:</span>
+                                    <span class="h6" id="txt_username">@Model.UserName</span>
+                                </li>
+                                <li class="mb-3">
+                                    <span class="d-block">Telefon:</span>
+                                    <span class="h6" id="txt_phone">@Model.Phone</span>
+                                </li>
+                                <li class="mb-3">
+                                    <span class="d-block">Adres:</span>
+                                    <span class="h6" id="txt_address">@Model.Address</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div> <!-- END col-md-4 -->
+                <div class="col-lg-8 mt-4">
+                    <div class="card shadow-v1 padding-30">
+                        <ul class="nav tab-line tab-line border-bottom mb-4" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active show" data-toggle="tab" href="#Tabs_1-5" role="tab" aria-selected="false">
+                                    Bilgilerim
+                                </a>
+                            </li>
+                            @*<li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#Tabs_1-1" role="tab" aria-selected="true">
+                                    Ödeme Geçmişi
+                                </a>
+                            </li>*@
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#Tabs_1-2" role="tab" aria-selected="false" id="certTab">
+                                    Belgelerim
+                                </a>
+                            </li>
+
+                        </ul>
+
+                        <div class="tab-content">
+                            <div class="tab-pane fade active show" id="Tabs_1-5" role="tabpanel">
+                                
+                                <div class="border-bottom mb-4 pb-4">
+                                    <h4 class="mb-4">
+                                        Bilgilerimi Güncelle
+                                    </h4>
+
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label text-dark">İsim</label>
+                                        <div class="col-md-9">
+                                            <input asp-for="Name" class="form-control form1">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label text-dark">Soyisim</label>
+                                        <div class="col-md-9">
+                                            <input asp-for="Surname" class="form-control form1">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label text-dark">Ünvan</label>
+                                        <div class="col-md-9">
+                                            <input asp-for="Title" class="form-control form1">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label text-dark">Tc No</label>
+                                        <div class="col-md-9">
+                                            <input asp-for="TcNo" class="form-control form1">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label text-dark">Email</label>
+                                        <div class="col-md-9">
+                                            <input asp-for="UserName" class="form-control form1">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label text-dark">Telefon</label>
+                                        <div class="col-md-9">
+                                            <input asp-for="Phone" type="tel" class="form-control form1">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label text-dark">Meslek</label>
+                                        <div class="col-md-9">
+                                            <input asp-for="Job" class="form-control form1">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label text-dark">Kurum</label>
+                                        <div class="col-md-9">
+                                            <input asp-for="Institute" class="form-control form1">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label text-dark">Adres</label>
+                                        <div class="col-md-9">
+                                            <input asp-for="Address" class="form-control form1">
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-end">
+                                        <button class="btn btn-primary m-2" id="upd_account" disabled>Bilgileri Güncelle</button>
+                                    </div>
+                                </div>
+
+                                <div class="border-bottom mb-4 pb-4">
+                                    <h4 class="mb-4">
+                                        Güvenlik Ayarları
+                                    </h4>
+
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label text-dark">Mevcut Şifre</label>
+                                        <div class="col-md-9">
+                                            <input type="password" class="form-control form2" id="currentpass">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label text-dark">Yeni Şifre</label>
+                                        <div class="col-md-9">
+                                            <input type="password" class="form-control form2" id="newpass1">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label text-dark">Yeni Şifre (Tekrar)</label>
+                                        <div class="col-md-9">
+                                            <input type="password" class="form-control form2" id="newpass2">
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-end">
+                                        <button class="btn btn-primary m-2" id="upd_pass" disabled>Şifreyi Güncelle</button>
+                                    </div>
+                                </div>
+
+                            
+                            </div> <!-- END tab-pane -->
+                            @*<div class="tab-pane fade" id="Tabs_1-1" role="tabpanel">
+                                <div class="table-responsive my-4">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Order ID</th>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Price</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row" class="text-dark font-weight-semiBold">#00004673</th>
+                                                <td>01 Aug 2018</td>
+                                                <td>$49</td>
+                                                <td>
+                                                    <a href="#" class="btn btn-link">View</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" class="text-dark font-weight-semiBold">#05604673</th>
+                                                <td>07 Aug 2018</td>
+                                                <td>$300</td>
+                                                <td>
+                                                    <a href="#" class="btn btn-link">View</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" class="text-dark font-weight-semiBold">#07O4673</th>
+                                                <td>16 Aug 2018</td>
+                                                <td>$34</td>
+                                                <td>
+                                                    <a href="#" class="btn btn-link">View</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" class="text-dark font-weight-semiBold">#06454673</th>
+                                                <td>24 Aug 2018</td>
+                                                <td>$10</td>
+                                                <td>
+                                                    <a href="#" class="btn btn-link">View</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" class="text-dark font-weight-semiBold">#0000435</th>
+                                                <td>28 Aug 2018</td>
+                                                <td>$199</td>
+                                                <td>
+                                                    <a href="#" class="btn btn-link">View</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>*@
+                        <div class="tab-pane fade" id="Tabs_1-2" role="tabpanel">
+                            <div class="row" id="certs">
+                                
+                            </div> <!-- END row-->
+                            <span class="hidden" id="iscert">0</span>
+                            <span class="hidden" id="cert">@ViewData["cert"]</span>
+                        </div> <!-- END tab-pane -->
+                            
+
+                        </div> <!-- END tab-content-->
+                    </div> <!-- END card-->
+                </div> <!-- END col-md-8 -->
+            </div> <!--END row-->
+        </div> <!--END container-->
+    </section>
+
+@section Scripts{
+<script src="~/lib/toastr/toastr.min.js"></script>
+<script src="~/lib/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="~/js/account.js"></script>
+ }

@@ -1,0 +1,45 @@
+﻿@model Elearning.Models.Article
+@{
+    ViewData["Title"] = "Ders";
+}
+    <section class="pt-5 paddingBottom-150 bg-light-v2">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 mt-4">
+
+                    <div class="card">
+
+                        <div class="card-body">
+                            <h2 class="my-4">
+                                @Model.Title
+                            </h2>
+
+                            @Html.Raw(Model.Text)
+
+                        </div> <!-- END card-body-->
+                    </div> <!-- END card-->
+
+
+                </div> <!-- END col-lg-9 -->
+
+                <aside class="col-lg-3 mt-4">
+
+                    <div class="widget">
+                        <h2 class="widget-title">
+                            Category List
+                        </h2>
+                        <ul>
+                            <li><a href="">All Courses (80)</a></li>
+                            <li><a href="">Web Development (28)</a></li>
+                            <li><a href="">Mobile Apps (4)</a></li>
+                            <li><a href="">Business (10)</a></li>
+                            <li><a href="">IT &amp; Software (22)</a></li>
+                            <li><a href="">Data Science (6)</a></li>
+                            <li><a href="">Design (16) </a></li>
+                        </ul>
+                    </div> <!-- END widget-->
+
+                </aside> <!-- END col-lg-3 -->
+            </div> <!-- END row-->
+        </div> <!-- END container-->
+    </section>

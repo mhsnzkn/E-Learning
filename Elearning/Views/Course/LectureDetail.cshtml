@@ -1,0 +1,131 @@
+﻿@model Elearning.Models.Lecture
+@{
+    ViewData["Title"] = "Dersi İncele";
+}
+
+<div class="padding-y-60 bg-cover" data-dark-overlay="6">
+    <div class="container">
+        <h1 class="text-white">
+            Ders Detayı
+        </h1>
+        <ol class="breadcrumb breadcrumb-double-angle text-white bg-transparent p-0">
+            <li class="breadcrumb-item"><a asp-action="Index">Kurslar</a></li>
+            <li class="breadcrumb-item"><a asp-action="Detail" asp-route-id="1">Kurs</a></li>
+            <li class="breadcrumb-item">Ders</li>
+        </ol>
+    </div>
+</div>
+
+
+<section class="padding-y-60 bg-light">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-8 mt-4">
+                <div class="card shadow-v1">
+                    <div class="position-relative">
+                        @if (!string.IsNullOrEmpty(Model.PreviewPath))
+                        {
+                            <img class="card-img-top w-100" src="@Model.PreviewPath" alt="">
+                        }
+                    </div>
+                    <div class="card-body padding-40">
+                        <h2 class="card-title">
+                            @Model.Title
+                        </h2>
+                        <ul class="nav tab-line tab-line border-bottom my-4 text-gray" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active show" data-toggle="tab" href="#Tabs_1-1" role="tab" aria-selected="true">
+                                    Açıklama
+                                </a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+
+                            <div class="tab-pane fade active show" id="Tabs_1-1" role="tabpanel">
+                                @Html.Raw(Model.Description)
+                                <h4 class="my-3">
+                                    Hedefler:
+                                </h4>
+                                <ul class="list-unstyled list-style-icon list-icon-check my-4">
+                                    @Html.Raw(Model.Aim)
+                                </ul>
+
+                                <div class="row">
+                                    <h4 class="my-3 col-12">
+                                        İçerik
+                                    </h4>
+                                    <div class="col-md-6 mb-4">
+                                        <ul class="list-unstyled list-style-icon list-icon-bullet">
+                                            @Html.Raw(Model.Content)
+                                        </ul>
+                                    </div>
+                                </div> <!-- END row-->
+
+                            </div> <!-- END tab-pane-->
+
+
+                        </div> <!-- END tab-content-->
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 mt-4">
+                <a href="#" class="btn btn-primary margin-40">Sadece bu dersi al</a>
+                <div class="card shadow-v1">
+                    <div class="card-body">
+                        <h4 class="mb-2">
+                            Event Quick Information
+                        </h4>
+                        <div class="border-bottom py-3">
+                            <div class="media">
+                                <i class="ti-credit-card text-primary mt-2"></i>
+                                <div class="media-body ml-3">
+                                    <h6 class="my-0">Ücret <span class="badge badge-primary ml-2">@Model.Price ₺</span></h6>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="card shadow-v1 mt-4">
+
+                    <div class="col-lg-8 mx-auto text-center">
+
+
+
+                        <div class="owl-item cloned" id="another">
+                            <div class="item">
+                                <img class="iconbox iconbox-xxl mx-auto" src="/lib/educati/img/avatar/7.jpg" alt="">
+                                <h4 class="font-primary mt-4">
+                                    @Model.Instructor.Name
+                                </h4>
+                                <p>
+                                    Porof
+                                </p>
+                                <div class="position-relative mt-5" id="cvi" style="max-height:150px;overflow:hidden">
+                                    <i class="ti-quote-left position-absolute absolute-center-x display-1 opacity-01 top-0" data-offset-top="-40" style="margin-top: -40px;"></i>
+                                    <p>
+                                        @Model.Instructor.Description
+                                    </p>
+                                </div>
+                                <button class="btn btn-sm btn-primary" onclick="showcv()">Tamamı...</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div> <!-- END row-->
+    </div> <!-- END container-->
+</section>
+
+
+@section Scripts{
+    <script src="~/js/LectureIndex.js"></script>
+}

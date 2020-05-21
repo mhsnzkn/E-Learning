@@ -1,0 +1,5 @@
+.vs
+.vscode
+Elearning/bin/
+Elearning/obj/
+Elearning/wwwroot/files/user_certificates

@@ -1,0 +1,35 @@
+﻿@model List<Elearning.Models.Lecture>
+@{
+    ViewData["Title"] = "Ders Listesi";
+}
+
+
+    <div class="container">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Ders Grubu</th>
+                    <th scope="col">Adı</th>
+                    <th scope="col">Sırası</th>
+                    <th scope="col">Ücreti</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <th scope="row">@item.LectureGroupId</th>
+                        <td>@item.Title</td>
+                        <td>@item.Row</td>
+                        <td>@item.Price</td>
+                        <td>
+                            <a class="btn btn-primary" asp-action="EditLecture" asp-route-id="@item.Id"> <i class="fas fa-list"></i> </a>
+                            <a class="btn btn-primary" asp-action="LectureDetailList" asp-route-id="@item.Id"> Ders İçeriği </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <a asp-controller="Admin" asp-action="Index" class="btn btn-secondary text-light m-1"><i class="fas fa-home"></i> Ana Sayfa</a>
+    </div>

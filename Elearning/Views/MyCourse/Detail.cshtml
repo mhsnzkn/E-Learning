@@ -1,0 +1,293 @@
+﻿@model Elearning.Models.Dto.MyCourseDetailDto
+@{
+    ViewData["Title"] = "Kurs Detayı";
+}
+
+
+<div class="padding-y-60 bg-cover" data-dark-overlay="6">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 my-2 text-white">
+                <ol class="breadcrumb breadcrumb-double-angle bg-transparent p-0">
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="MyCourse" asp-action="Index">Kurslarım</a></li>
+                    <li class="breadcrumb-item">Detay</li>
+                </ol>
+                <h2 class="h1">
+                    @ViewData["Title"]
+                </h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<section class="py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 z-index-10" data-offset-top-md="-40">
+                    <ul class="list-inline d-inline-block py-2 px-4 shadow-v3 bg-white rounded-pill">
+                        <li class="list-inline-item">Share <span class="d-none d-md-inline-block">this course:</span></li>
+                        <li class="list-inline-item mx-0">
+                            <a href="#" class="btn btn-opacity-primary iconbox iconbox-xs">
+                                <i class="ti-facebook"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item mx-0">
+                            <a href="#" class="btn btn-opacity-primary iconbox iconbox-xs">
+                                <i class="ti-twitter"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item mx-0">
+                            <a href="#" class="btn btn-opacity-primary iconbox iconbox-xs">
+                                <i class="ti-linkedin"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item mx-0">
+                            <a href="#" class="btn btn-opacity-primary iconbox iconbox-xs">
+                                <i class="ti-google"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <a href="#" class="btn btn-white iconbox"><i class="ti-heart"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>*@
+
+
+<section class="paddingBottom-100">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-9 marginTop-30">
+                <h1>
+                    @Model.CourseTitle
+                </h1>
+                <div class="row mt-3">
+                    <div class="col-lg-6 col-md-6 my-2">
+                        <div class="media border-right height-100p">
+                            <div class="media-body">
+                                <span class="text-gray d-block">Yayınlayan:</span>
+                                <a href="#" class="h6">@Model.Publisher</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 my-2">
+
+                    </div>
+                    <div class="col-lg-3 col-md-6 my-2">
+                        <div class="text-md-right height-100p">
+                            @if (Model.OnLectureId == 0)
+                            {
+                                <a class="btn btn-info" asp-controller="Result" asp-action="Index" asp-route-id="@Model.UserCourseId"><i class="fas fa-trophy"></i> Sonuca Git</a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-primary" asp-controller="Lecture" asp-action="Index" asp-route-id="@Model.OnLectureId">Derse Devam Et</a>
+                            }
+                        </div>
+                    </div>
+                </div> <!-- END row-->
+                @*<div class="ec-video-container my-4">
+            <iframe src="https://www.youtube.com/embed/nrJtHemSPW4?rel=0"></iframe>
+        </div>*@
+                @if (Model.EndDate !=null)
+                {
+                    <div class="width-100p bg-primary-0_7 text-center text-white">
+                        <h3>Kalan Zaman</h3>
+                        <ul class="list-inline my-2" data-countdown="@Model.EndDate?.ToString("yyyy-MM-dd")">
+                            <li class="list-inline-item iconbox iconbox-xxl bg-white-0_2 my-1">
+                                <h4 class="countdown-days font-size-md-28 mb-0 line-height-reset">226</h4>
+                                <small>Gün</small>
+                            </li>
+                            <li class="list-inline-item iconbox iconbox-xxl bg-white-0_2 my-1">
+                                <h4 class="countdown-hours font-size-md-28 mb-0 line-height-reset">12</h4>
+                                <small>Saat</small>
+                            </li>
+                            <li class="list-inline-item iconbox iconbox-xxl bg-white-0_2 my-1">
+                                <h4 class="countdown-minutes font-size-md-28 mb-0 line-height-reset">00</h4>
+                                <small>Dakika</small>
+                            </li>
+                        </ul>
+                    </div>
+                }
+
+
+                <div class="col-12 mt-4">
+                    <ul class="nav tab-line tab-line tab-line--3x border-bottom mb-5" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tabCurriculum" role="tab" aria-selected="true">
+                                Dersler
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tabDescription" role="tab" aria-selected="true">
+                                Genel Bilgi
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="tabCurriculum" role="tabpanel">
+                            <div id="accordionCurriculum">
+                                @for (int i = 0; i < Model.LectureGroups.Count(); i++)
+                                {
+                                    <div class="accordion-item list-group mb-3">
+
+                                        <div class="list-group-item bg-light">
+                                            <a class="row" href="#accordionCurriculum_@i" data-toggle="collapse" aria-expanded="false">
+                                                <span class="col-9 col-md-8">
+                                                    <span class="accordion__icon text-primary mr-2">
+                                                        <i class="ti-plus"></i>
+                                                        <i class="ti-minus"></i>
+                                                    </span>
+                                                    <span class="h6 d-inline">@Model.LectureGroups.OrderBy(a => a.LectureGroupRow).ElementAt(i).LectureGroupTitle</span>
+                                                </span>
+                                                <span class="col-2 d-none d-md-block text-center">
+                                                    @Model.LectureGroups.OrderBy(a => a.LectureGroupRow).ElementAt(i).AllLect Ders
+                                                </span>
+                                                <span class="col-3 col-md-2 text-right">
+                                                    20:20
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div id="accordionCurriculum_@i" class="collapse" data-parent="#accordionCurriculum">
+                                            @foreach (var lec in Model.LectureGroups.ElementAt(i).Lectures.OrderBy(s => s.LectureRow).Where(a=>!a.IsRequired))
+                                            {
+
+                                                @*<div class="list-group-item">
+                                            <span class="row">
+                                                <a class="col-9 col-md-8" href="#">
+                                                    <i class="ti-control-play small mr-1 text-primary"></i>
+                                                    @lecture.Title
+                                                </a>
+                                                <span class="col-2 d-none d-md-block text-right">
+                                                    <a href="https://www.youtube.com/embed/nrJtHemSPW4?rel=0" data-fancybox class="text-success">Preview</a>
+                                                </span>
+                                                <span class="col-3 col-md-2 ml-auto text-right">00:36</span>
+                                            </span>
+                                        </div>*@
+
+                                                <div class="list-group-item">
+                                                    <span class="row">
+                                                        <a class="col-9 col-md-8" asp-controller="Lecture" asp-action="Index" asp-route-id="@lec.UserCourseDetailId">
+                                                            <i class="ti-control-play small mr-1 text-primary"></i>
+                                                            @lec.LectureTitile
+                                                        </a>
+                                                        <span class="col-2 d-none d-md-block text-center">
+                                                            @if (lec.Done)
+                                                            {
+                                                                <i class="fas fa-check-circle fa-lg" style="color:#318ac6"></i>
+                                                            }
+                                                            else
+                                                            {
+                                                                <i class="far fa-circle fa-lg" style="color:#318ac6"></i>
+                                                            }
+                                                        </span>
+                                                        <span class="col-3 col-md-2 ml-auto text-right">7:12</span>
+                                                    </span>
+                                                </div>
+
+
+                                            }
+                                        </div>
+                                    </div> <!-- END accordion-->
+                                }
+
+                            </div>
+                        </div> <!-- END tab-pane-->
+
+                        <div class="tab-pane fade" id="tabDescription" role="tabpanel">
+                            <div id="accordionCurriculum">
+                                <h4>
+                                    Açıklama
+                                </h4>
+                                @Html.Raw(Model.Description)
+
+                                <div class="row mt-5">
+                                    <div class="col-12">
+                                        <h4>
+                                            Neler Öğreneceksiniz?
+                                        </h4>
+                                    </div>
+                                    <div class="col-md-6 my-2">
+                                        <ul class="list-unstyled list-style-icon list-icon-check">
+                                            @Html.Raw(Model.Whatwilllearn)
+                                        </ul>
+                                    </div>
+
+                                    <div class="col-md-6 my-2">
+                                    </div>
+
+                                    <div class="col-md-6 my-2">
+                                        <h4>
+                                            Kurs için Gerekenler
+                                        </h4>
+                                        <ul class="list-unstyled list-style-icon list-icon-bullet">
+                                            @Html.Raw(Model.Requirements)
+                                        </ul>
+                                    </div>
+
+                                    <div class="col-md-6 my-2">
+                                        <h4>
+                                            Bu Kurs Kimler için?
+                                        </h4>
+                                        <ul class="list-unstyled list-style-icon list-icon-bullet">
+                                            @Html.Raw(Model.Whosfor)
+                                        </ul>
+                                    </div>
+                                </div> <!-- END row-->
+
+
+
+
+
+
+                            </div> <!-- END accordion-->
+                        </div> <!-- END tab-pane -->
+
+
+                    </div> <!-- END tab-content-->
+                </div> <!-- END col-12 -->
+            </div> <!-- END col-lg-9 -->
+
+            <aside class="col-lg-3">
+                <div class="text-center p-3">
+                    <div class="js-circle" data-radius="80" data-border-color="#000" data-border-fg-color="#00b249" data-border-width="8" data-value="@Model.CompletionRate" data-text-suffix="%" data-text-color="#000" data-text-size="30" id="js-circle-4">
+                        <div class="circles-wrp" style="position: relative; display: inline-block;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160">
+                                <path fill="transparent" stroke="#000" stroke-width="8" d="M 79.98452083651917 4.000001576345426 A 76 76 0 1 1 79.89443752470656 4.0000733121155605 Z" class="circles-maxValueStroke"></path>
+                                <path fill="transparent" stroke="#e81c62" stroke-width="8" d="M 79.98452083651917 4.000001576345426 A 76 76 0 1 1 21.510924070473706 128.52863069271694 " class="circles-valueStroke"></path>
+                            </svg><div class="circles-text" style="position: absolute; top: 0px; left: 0px; text-align: center; width: 100%; font-size: 30px; height: 160px; line-height: 160px; color: black;">1%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card border border-light marginTop-30 shadow-v1">
+                    <h4 class="card-header border-bottom mb-0 h6">Choose Category</h4>
+                    <ul class="card-body list-unstyled mb-0">
+                        <li class="mb-2"><a href="">All Courses</a></li>
+                        <li class="mb-2"><a href="">Web Development</a></li>
+                        <li class="mb-2"><a href="">Mobile Apps</a></li>
+                        <li class="mb-2"><a href="">Business</a></li>
+                        <li class="mb-2"><a href="">IT & Software</a></li>
+                        <li class="mb-2"><a href="">Data Science</a></li>
+                        <li class="mb-2"><a href="">Design</a></li>
+                        <li class="mb-2"><a href="">Marketing</a></li>
+                    </ul>
+                </div>
+            </aside> <!-- END col-lg-3 -->
+
+        </div> <!-- END row-->
+    </div> <!-- END container-->
+</section>
+
+
+@section Scripts{
+    <script>
+        addShow();
+        function addShow() {
+            var element = document.getElementById("accordionCurriculum_0");
+            element.classList.add("show");
+
+        }
+    </script>
+}

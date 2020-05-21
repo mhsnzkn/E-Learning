@@ -1,0 +1,74 @@
+﻿@model PaginatedList<Elearning.Models.Course>
+@{
+    ViewData["Title"] = "Admin";
+}
+    <div class="container" style="min-height:750px">
+
+
+            <form class=" border m-2" asp-controller="Admin" asp-action="Index" method="get">
+                <div class="input-group">
+                    <input type="text" placeholder="Kurs adı veya Yayıncı" class="form-control py-3 border-white" name="search" value="@ViewBag.filter">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit"><i class="ti-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        <div class="m-1 p-1">
+            <a class="btn btn-primary" asp-action="AddCourse">Yeni Kurs Ekle</a>
+        </div>
+        <div class="row">
+            <div class="col-12 mb-5 text-center">
+                <h4> Kurslar </h4>
+            </div>
+            <div class="col-12 mx-auto">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Adı</th>
+                                <th scope="col">Yayıncı</th>
+                                <th scope="col">Ücreti</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <th scope="row">@item.Id</th>
+                                    <td>@item.Title</td>
+                                    <td>@item.Publisher</td>
+                                    <td>@item.Price</td>
+                                    <td class="text-center">
+                                        <a class="btn btn-outline-info" asp-action="EditCourse" asp-route-id="@item.Id">Kurs</a>
+                                        <a class="btn btn-outline-info" asp-action="EditLectureGroup" asp-route-id="@item.Id">Ders Grubu</a>
+                                        <a class="btn btn-outline-info" asp-action="LectureList" asp-route-id="@item.Id">Dersler</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+            @{
+                var prevDisabled = !Model.HasPreviousPage ? "hidden" : "";
+                var nextDisabled = !Model.HasNextPage ? "hidden" : "";
+            }
+            <div class="col-12 marginTop-70">
+                <ul class="pagination pagination-primary justify-content-center">
+                    <li class="page-item mx-1">
+                        <a id="prevbtn" asp-action="Index" asp-route-pg="@(Model.PageIndex - 1)" asp-route-filter="@ViewData["filter"]" class="btn page-link iconbox iconbox-sm rounded-0 @prevDisabled">
+                            <i class="ti-angle-left small"></i>
+                        </a>
+                    </li>
+                    <li class="page-item mx-1">
+                        <a id="nextbtn" asp-action="Index" asp-route-pg="@(Model.PageIndex + 1)" asp-route-filter="@ViewData["filter"]" class="btn page-link iconbox iconbox-sm rounded-0 @nextDisabled">
+                            <i class="ti-angle-right small"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>

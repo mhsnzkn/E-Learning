@@ -1,0 +1,225 @@
+﻿@model Elearning.Models.Course
+@{
+    ViewData["Title"] = "Kurs Detayı";
+}
+
+
+<div class="padding-y-60 bg-cover" data-dark-overlay="6">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 my-2 text-white">
+                <ol class="breadcrumb breadcrumb-double-angle bg-transparent p-0">
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="Course" asp-action="Index">Kurslar</a></li>
+                    <li class="breadcrumb-item">Details</li>
+                </ol>
+                <h2 class="h1">
+                    @ViewData["Title"]
+                </h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section class="paddingBottom-100">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-9 marginTop-30">
+                <h1>
+                    @Model.Title
+                </h1>
+                <div class="row mt-3">
+                    <div class="col-lg-3 col-md-6 my-2">
+                        <div class="media height-100p">
+                            <div class="media-body">
+                                <span class="text-gray d-block">Yayınlayan:</span>
+                                <a href="#" class="h6">@Model.Publisher</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 my-2">
+                        
+                    </div>
+                    <div class="col-lg-3 col-md-6 my-2">
+                       
+                    </div>
+                    <div class="col-lg-3 col-md-6 my-2">
+                        <div class="text-md-right height-100p">
+                            @if (Model.Price > 0)
+                            {
+                                <h2 class="font-weight-bold text-primary mb-2">@Model.Price ₺</h2>
+                            }
+                            else
+                            {
+                                <h2 class="font-weight-bold text-primary mb-2">Ücretsiz</h2>
+                            }
+                            <a asp-action="Buy" asp-route-id="@Model.Id" asp-route-comp="@Model.CompletionDay" class="btn btn-primary">Kursu Al</a>
+                        </div>
+                    </div>
+                </div> <!-- END row-->
+
+                <div class="img-fluid my-4 text-center">
+                    <img src="@Model.PreviewPath" />
+                </div>
+
+                <div class="card padding-30 shadow-v3">
+                    <h4>
+                        Özellikler
+                    </h4>
+                    <ul class="list-inline mb-0 mt-2">
+                        <li class="list-inline-item my-2 pr-md-4">
+                            <i class="ti-headphone small text-primary"></i>
+                            <span class="ml-2">@Model.Lectures.Where(a => !a.IsRequired && a.Active).Count() Ders</span>
+                        </li>
+                        <li class="list-inline-item my-2 pr-md-4">
+                            <i class="ti-crown small text-primary"></i>
+                            <span class="ml-2">Başarı Belgesi</span>
+                        </li>
+                        <li class="list-inline-item my-2 pr-md-4">
+                            <i class="ti-time small text-primary"></i>
+                            @if (Model.CompletionDay != null)
+                            {
+                                <span class="ml-2">@Model.CompletionDay Gün Erişim</span>
+                            }
+                            else
+                            {
+                                <span class="ml-2">Sınırsız Erişim</span>
+                            }
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-12 mt-4">
+                    <ul class="nav tab-line tab-line tab-line--3x border-bottom mb-5" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tabDescription" role="tab" aria-selected="true">
+                                Genel Bilgi
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tabCurriculum" role="tab" aria-selected="true">
+                                Dersler
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="tabDescription" role="tabpanel">
+                            <h4>
+                                Açıklama
+                            </h4>
+                            @Html.Raw(Model.Description)
+
+                            <div class="row mt-5">
+                                <div class="col-12">
+                                    <h4>
+                                        Neler Öğreneceksiniz?
+                                    </h4>
+                                </div>
+                                <div class="col-md-6 my-2">
+                                    <ul class="list-unstyled list-style-icon list-icon-check">
+                                        @Html.Raw(Model.WhatWillLearn)
+                                    </ul>
+                                </div>
+
+                                <div class="col-md-6 my-2">
+                                </div>
+
+                                <div class="col-md-6 my-2">
+                                    <h4>
+                                        Kurs için Gerekenler
+                                    </h4>
+                                    <ul class="list-unstyled list-style-icon list-icon-bullet">
+                                        @Html.Raw(Model.Requirements)
+                                    </ul>
+                                </div>
+
+                                <div class="col-md-6 my-2">
+                                    <h4>
+                                        Bu Kurs Kimler için?
+                                    </h4>
+                                    <ul class="list-unstyled list-style-icon list-icon-bullet">
+                                        @Html.Raw(Model.WhosFor)
+                                    </ul>
+                                </div>
+                            </div> <!-- END row-->
+                        </div> <!-- END tab-pane-->
+
+                        <div class="tab-pane fade" id="tabCurriculum" role="tabpanel">
+                            <div id="accordionCurriculum">
+
+                                @for (int i = 0; i < Model.LectureGroups.Count; i++)
+                                {
+                                    <div class="accordion-item list-group mb-3">
+
+                                        <div class="list-group-item bg-light">
+                                            <a class="row" href="#accordionCurriculum_@i" data-toggle="collapse" aria-expanded="true">
+                                                <span class="col-9 col-md-8">
+                                                    <span class="accordion__icon text-primary mr-2">
+                                                        <i class="ti-plus"></i>
+                                                        <i class="ti-minus"></i>
+                                                    </span>
+                                                    <span class="h6 d-inline">@Model.LectureGroups.OrderBy(a=>a.Row).ElementAt(i).Title</span>
+                                                </span>
+                                                <span class="col-2 d-none d-md-block text-right">
+                                                    6 Lectures
+                                                </span>
+                                            </a>
+                                        </div>
+
+                                        <div id="accordionCurriculum_@i" class="collapse" data-parent="#accordionCurriculum">
+                                                @foreach (var item in Model.LectureGroups.OrderBy(a=>a.Row).ElementAt(i).Lectures.Where(a=>a.IsRequired==false && a.Active).OrderBy(a => a.Row))
+                                                {
+                                                    <div class="list-group-item">
+                                                        <span class="row">
+                                                            <a class="col-9 col-md-8" asp-action="LectureDetail" asp-route-id="@item.Id">
+                                                                <i class="ti-control-play small mr-1 text-primary"></i>
+                                                                @item.Title
+                                                            </a>
+                                                            <span class="col-2 d-none d-md-block text-right">
+                                                                <a asp-action="LectureDetail" asp-route-id="@item.Id" class="text-success">Detaylar</a>
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div> <!-- END accordion-->
+                                        }
+
+                                    </div>
+                                </div> <!-- END tab-pane-->
+
+                            </div> <!-- END tab-content-->
+                        </div> <!-- END col-12 -->
+                    </div> <!-- END col-lg-9 -->
+
+                    <aside class="col-lg-3">
+                        <div class="card border border-light marginTop-30 shadow-v1">
+                            <h4 class="card-header border-bottom mb-0 h6">Choose Category</h4>
+                            <ul class="card-body list-unstyled mb-0">
+                                <li class="mb-2"><a href="">All Courses</a></li>
+                                <li class="mb-2"><a href="">Web Development</a></li>
+                                <li class="mb-2"><a href="">Mobile Apps</a></li>
+                                <li class="mb-2"><a href="">Business</a></li>
+                                <li class="mb-2"><a href="">IT & Software</a></li>
+                                <li class="mb-2"><a href="">Data Science</a></li>
+                                <li class="mb-2"><a href="">Design</a></li>
+                                <li class="mb-2"><a href="">Marketing</a></li>
+                            </ul>
+                        </div>
+                    </aside> <!-- END col-lg-3 -->
+
+                </div> <!-- END row-->
+            </div> <!-- END container-->
+    </section>
+
+    @section Scripts{
+        <script>
+            addShow();
+            function addShow() {
+                var element = document.getElementById("accordionCurriculum_0");
+                element.classList.add("show");
+            }
+        </script>
+    }
